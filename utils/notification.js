@@ -26,9 +26,8 @@ export function setLocalNotification() {
     .then((data) => {
       if (data === null) {
         Permissions.askAsync(Permissions.NOTIFICATIONS)
-          .then((obj) => {
-            console.log('Return object', obj);
-            if (obj.status === 'granted') {
+          .then(({ status }) => {
+            if (status === 'granted') {
               Notifications.cancelAllScheduledNotificationsAsync();
 
               // Set a local notification for tomorrow 8pm.
