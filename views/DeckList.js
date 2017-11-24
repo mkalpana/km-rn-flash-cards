@@ -5,7 +5,7 @@ import { grey } from '../utils/colors';
 import { fetchDecks } from '../actions';
 import { connect } from 'react-redux';
 
-class DeckList extends Component{
+export class DeckList extends Component{
   componentDidMount() {
     this.props.fetchDecks();
   }

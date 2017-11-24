@@ -25,4 +25,6 @@ The application requires the following software to be installed locally.
     - `npm install`
     - `npm start`
     - Press `q` for showing qr code to open the app in expo or press `i` for iOS simulator or press `a` for android simulator.
+* Running uint tests
+    - `npm test` to start run unit tests.
 

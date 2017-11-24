@@ -7,7 +7,7 @@ import { grey, black, white, transparent } from '../utils/colors';
 import { Button } from '../components';
 import { get } from 'lodash';
 
-class Deck extends Component{
+export class Deck extends Component{
   static navigationOptions = ({ navigation }) => {
     const { title } = navigation.state.params
     return {
@@ -25,7 +25,7 @@ class Deck extends Component{
 
   render() {
     const { deck, navigation } = this.props;
-    return (deck && deck.title && deck.questions &&
+    return (deck && deck.title && deck.questions ?
       <View style={styles.container}>
         <View style={styles.textContainer}>
           <Text style={styles.deckTitle}>{deck.title}</Text>
@@ -48,6 +48,8 @@ class Deck extends Component{
           )}
         </View>
       </View>
+      :
+        <View><Text>Empty</Text></View>
     );
   }
 }
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
 });
 
 Deck.propTypes = {
-  deck: PropTypes.object.isRequired,
+  deck: PropTypes.object,
   fetchDeck: PropTypes.func.isRequired,
 };
 
@@ -101,6 +103,8 @@ const mapStateToProps = (state, ownProps) => {
   const { navigation } = ownProps;
   const title = get(navigation, 'state.params.title', '');
   const decksList = state.decks;
+  console.log('Deck navigation', navigation);
+  console.log('decksList', decksList);
   return {
     deck: title ? decksList[title] : {}
   };

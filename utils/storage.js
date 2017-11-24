@@ -4,6 +4,7 @@ import { AsyncStorage } from 'react-native';
 const FLASH_CARDS_STORAGE_KEY = 'km-rn-flash-cards::storage';
 const FLASH_CARDS_NOTIFICATION_KEY = 'km-rn-flash-cards::notification';
 
+// Fetches all the decks in the AsyncStorage
 export function getDecks() {
   return new Promise((resolve, reject) => {
     try{
@@ -19,6 +20,7 @@ export function getDecks() {
   });
 }
 
+// Fetches the deck requested from AsyncStorage
 export async function getDeck(id) {
   return new Promise((resolve, reject) => {
     try{
@@ -34,6 +36,7 @@ export async function getDeck(id) {
   });
 }
 
+// Add a new deck to AsyncStorage.
 export async function saveDeckTitle(title) {
   return new Promise((resolve, reject) => {
     try{
@@ -47,6 +50,7 @@ export async function saveDeckTitle(title) {
   });
 }
 
+// Adds a card to an existing deck. card param is an object containing keys question and answer.
 export async function addCardToDeck(title, card) {
   return new Promise((resolve, reject) => {
     try {
@@ -65,6 +69,7 @@ export async function addCardToDeck(title, card) {
 
 }
 
+// Clear items stored in AsyncStorage for this app.
 export async function clearItems() {
   return new Promise((resolve, reject) => {
     try{

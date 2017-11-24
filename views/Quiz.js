@@ -14,7 +14,7 @@ const INITIAL_STATE = {
   showQuestion: true
 };
 
-class Quiz extends Component {
+export class Quiz extends Component {
   state = INITIAL_STATE;
 
   componentDidMount() {
@@ -39,30 +39,37 @@ class Quiz extends Component {
     this.setState(INITIAL_STATE);
   };
 
-  renderQuestion = (question, index) => {
+  renderQuestionAnswerSection = (question) => {
+    const { showQuestion } = this.state;
+    return (
+      <View style={styles.textContainer}>
+        { showQuestion ? (
+          <View>
+            <Text style={styles.textStyle}>{question.question}</Text>
+            <Text style={styles.textBtnStyle} onPress={() => this.setState({ showQuestion: false })}>
+              Answer
+            </Text>
+          </View>
+        ): (
+          <View>
+            <Text style={styles.textStyle}>{question.answer}</Text>
+            <Text style={styles.textBtnStyle} onPress={() => this.setState({ showQuestion: true })}>
+              Question
+            </Text>
+          </View>
+        )}
+      </View>
+    );
+  }
+
+  renderQuizQuestion = (question, index) => {
     const { deck } = this.props;
-    const { showQuestion, currentQuestionIndex } = this.state;
+    const { currentQuestionIndex } = this.state;
     const showCurrentQuestion = currentQuestionIndex <= deck.questions.length - 1 && currentQuestionIndex  === index;
     return ( showCurrentQuestion &&
       <View key={index} style={styles.container}>
         <Text style={styles.questionNumber}>{index+1} / {deck.questions.length} </Text>
-        <View style={styles.textContainer}>
-          { showQuestion ? (
-            <View>
-              <Text style={styles.textStyle}>{question.question}</Text>
-              <Text style={styles.textBtnStyle} onPress={() => this.setState({ showQuestion: false })}>
-                Answer
-              </Text>
-            </View>
-          ): (
-            <View>
-              <Text style={styles.textStyle}>{question.answer}</Text>
-              <Text style={styles.textBtnStyle} onPress={() => this.setState({ showQuestion: true })}>
-                Question
-              </Text>
-            </View>
-          )}
-        </View>
+        { this.renderQuestionAnswerSection(question) }
       <View style={styles.inputContainer}>
         <Button
           style={styles.btnStyle}
@@ -127,7 +134,7 @@ class Quiz extends Component {
     // Show questions in the deck.
     return (
       <View style={styles.container}>
-        { deck.questions.map((question, index) => this.renderQuestion(question, index)) }
+        { deck.questions.map((question, index) => this.renderQuizQuestion(question, index)) }
         { this.resultsScreen() }
       </View>
     )

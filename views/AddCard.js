@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { StyleSheet, KeyboardAvoidingView } from 'react-native';
 import PropTypes from 'prop-types';
-import { Button, Input } from '../components';
-import { addCard, fetchDecks } from '../actions';
 import { connect } from 'react-redux';
 import { get } from 'lodash';
+import { Button, Input } from '../components';
+import { addCard, fetchDecks } from '../actions';
+import { transparent } from '../utils/colors';
 
-class AddCard extends Component{
+export class AddCard extends Component{
   state = {
     title: '',
     question: '',
@@ -30,12 +31,14 @@ class AddCard extends Component{
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <Input
           style={styles.inputs}
+          underlineColorAndroid={transparent}
           placeholder="Enter question"
           value={this.state.question}
           onChangeText={(question) => this.setState({ question })}
         />
         <Input
           style={styles.inputs}
+          underlineColorAndroid={transparent}
           placeholder="Enter answer"
           value={this.state.answer}
           onChangeText={(answer) => this.setState({ answer })}
